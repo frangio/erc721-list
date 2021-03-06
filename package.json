@@ -1,0 +1,11 @@
+{
+  "name": "erc721-list",
+  "private": true,
+  "author": "Francisco Giordano <frangio.1@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.1",
+    "@openzeppelin/contracts": "^4.0.0-beta.1",
+    "hardhat": "^2.1.1"
+  }
+}
