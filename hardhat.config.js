@@ -15,7 +15,7 @@ module.exports = {
   defaultNetwork: 'mainnet',
   networks: {
     mainnet: {
-      url: 'https://mainnet.infura.io/v3/369259432bc64453b846bc6fd702a682',
+      url: 'https://mainnet.infura.io/v3/75d50d7bbf614c88b312a16a49ceda96',
     },
   },
 };
