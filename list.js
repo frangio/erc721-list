@@ -2,14 +2,12 @@ const { ethers } = require('hardhat');
 
 const ERC721 = require('@openzeppelin/contracts/build/contracts/ERC721.json');
 
-module.exports = async function listTokensOfOwner({ token: tokenAddress, account }) {
+async function listTokensOfOwner(tokenAddress, account) {
   const token = await ethers.getContractAt(
     ERC721.abi,
     tokenAddress,
     ethers.provider,
   );
-
-  console.error(await token.name(), 'tokens owned by', account);
 
   const sentLogs = await token.queryFilter(
     token.filters.Transfer(account, null),
@@ -27,9 +25,7 @@ module.exports = async function listTokensOfOwner({ token: tokenAddress, account
 
   const owned = new Set();
 
-  for (const log of logs) {
-    const { from, to, tokenId } = log.args;
-    
+  for (const { args: { from, to, tokenId } } of logs) {
     if (addressEqual(to, account)) {
       owned.add(tokenId.toString());
     } else if (addressEqual(from, account)) {
@@ -37,9 +33,25 @@ module.exports = async function listTokensOfOwner({ token: tokenAddress, account
     }
   }
 
-  console.log([...owned].join('\n'));
+  return owned;
 };
 
 function addressEqual(a, b) {
   return a.toLowerCase() === b.toLowerCase();
 }
+
+async function getTokenName(tokenAddress) {
+  const token = await ethers.getContractAt(
+    ERC721.abi,
+    tokenAddress,
+    ethers.provider,
+  );
+
+  return token.name();
+}
+
+module.exports = async function ({ token, account }) {
+  console.error(await getTokenName(token), 'tokens owned by', account);
+  const owned = await listTokensOfOwner(token, account);
+  console.log([...owned].join('\n'));
+};
