@@ -2,7 +2,7 @@ const { ethers } = require('hardhat');
 
 const ERC721 = require('@openzeppelin/contracts/build/contracts/ERC721.json');
 
-module.exports = async function ({ token: tokenAddress, account }) {
+module.exports = async function listTokensOfOwner({ token: tokenAddress, account }) {
   const token = await ethers.getContractAt(
     ERC721.abi,
     tokenAddress,
