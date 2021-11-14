@@ -20,7 +20,7 @@ async function listTokensOfOwner(tokenAddress, account) {
     .sort(
       (a, b) =>
         a.blockNumber - b.blockNumber ||
-        a.transactionIndex - b.TransactionIndex,
+        a.transactionIndex - b.transactionIndex,
     );
 
   const owned = new Set();
